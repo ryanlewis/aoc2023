@@ -11,13 +11,11 @@ fun main() {
         val copies = mutableMapOf<Int, Int>()
 
         for ((i, card) in scratchCards.withIndex()) {
-            val c = copies.getOrDefault(i, 0)
-            repeat(c + 1) {
+            val cardCount = 1 + (copies[i] ?: 0)
+            repeat(cardCount) {
                 var j = i
-                var n = card.winningNumbers
-                while (n > 0) {
+                repeat(card.winningNumbers) {
                     copies.compute(++j) { _, v -> (v ?: 0) + 1 }
-                    n--
                 }
             }
         }
