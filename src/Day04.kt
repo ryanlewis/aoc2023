@@ -38,8 +38,8 @@ fun main() {
 
 data class ScratchCard(
     val id: Int,
-    val numbers: List<Int>,
-    private val winningSet: List<Int>,
+    val numbers: Set<Int>,
+    private val winningSet: Set<Int>,
 ) {
     /**
      * The number of winning numbers on this card
@@ -67,6 +67,6 @@ fun List<String>.toScratchCards(): List<ScratchCard> {
         val numbers = numberSet.trim().split(" ").filterNot { it.isBlank() }.map { it.trim().toInt() }
         val winningNumbers = winningSet.trim().split(" ").filterNot { it.isBlank() }.map { it.trim().toInt() }
 
-        ScratchCard(id, numbers, winningNumbers)
+        ScratchCard(id, numbers.toSet(), winningNumbers.toSet())
     }
 }
