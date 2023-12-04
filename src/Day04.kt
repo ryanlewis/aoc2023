@@ -42,17 +42,17 @@ data class ScratchCard(
     /**
      * The number of winning numbers on this card
      */
-    val winningNumbers: Int
-        get(): Int = numbers.intersect(winningSet).size
+    val winningNumbers: Int by lazy { numbers.intersect(winningSet).size }
 
     /**
      * The score of this card
      */
-    val score: Int
-        get(): Int {
-            val n = winningNumbers
-            return if (n == 0) 0 else 2.0.pow(n - 1.0).toInt()
+    val score: Int by lazy {
+        when (val n = winningNumbers) {
+            0 -> 0
+            else -> 2.0.pow(n - 1.0).toInt()
         }
+    }
 }
 
 fun List<String>.toScratchCards(): List<ScratchCard> {
