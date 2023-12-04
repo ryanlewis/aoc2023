@@ -36,8 +36,8 @@ fun main() {
 
 data class ScratchCard(
     val id: Int,
-    val numbers: Set<Int>,
     private val winningSet: Set<Int>,
+    val numbers: Set<Int>,
 ) {
     /**
      * The number of winning numbers on this card
@@ -55,16 +55,26 @@ data class ScratchCard(
     }
 }
 
-fun List<String>.toScratchCards(): List<ScratchCard> {
+private fun List<String>.toScratchCards(): List<ScratchCard> {
     return map { line ->
         val (cardID, rest) = line.split(":")
         val id = cardID.substringAfter("Card ").trim().toInt()
 
-        val (numberSet, winningSet) = rest.split("|")
+        val (winningSet, numberSet) = rest.split("|")
 
-        val numbers = numberSet.trim().split(" ").filterNot { it.isBlank() }.map { it.trim().toInt() }
-        val winningNumbers = winningSet.trim().split(" ").filterNot { it.isBlank() }.map { it.trim().toInt() }
+        val winningNumbers = winningSet.toIntSet()
+        val numbers = numberSet.toIntSet()
 
-        ScratchCard(id, numbers.toSet(), winningNumbers.toSet())
+        ScratchCard(id, winningNumbers, numbers)
     }
 }
+
+/**
+ * Converts a string of numbers separated by spaces into a set of integers
+ */
+private fun String.toIntSet() = this
+    .trim()
+    .split(" ")
+    .filterNot { it.isBlank() }
+    .map { it.trim().toInt() }
+    .toSet()
