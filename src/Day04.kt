@@ -62,19 +62,9 @@ private fun List<String>.toScratchCards(): List<ScratchCard> {
 
         val (winningSet, numberSet) = rest.split("|")
 
-        val winningNumbers = winningSet.toIntSet()
-        val numbers = numberSet.toIntSet()
+        val winningNumbers = winningSet.toIntList().toSet()
+        val numbers = numberSet.toIntList().toSet()
 
         ScratchCard(id, winningNumbers, numbers)
     }
 }
-
-/**
- * Converts a string of numbers separated by spaces into a set of integers
- */
-private fun String.toIntSet() = this
-    .trim()
-    .split(" ")
-    .filterNot { it.isBlank() }
-    .map { it.trim().toInt() }
-    .toSet()

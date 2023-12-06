@@ -54,3 +54,19 @@ fun String.toNumberList(): List<Int> {
 
     return numbers
 }
+
+
+
+/**
+ * Converts a string of numbers separated by spaces into a list of integers
+ */
+fun String.toIntList(delimiter: Regex = "\\s+".toRegex()): List<Int> {
+    return this.split(delimiter).mapNotNull { it.toIntOrNull() }
+}
+
+/**
+ * Converts a string of numbers separated by spaces into a list of longs
+ */
+fun String.toLongList(delimiter: Regex = "\\s+".toRegex()): List<Long> {
+    return this.split(delimiter).mapNotNull { it.toLongOrNull() }
+}
