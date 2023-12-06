@@ -71,7 +71,7 @@ fun List<String>.parseAlmanac(): Almanac {
         val ranges = mutableListOf<SeedRange>()
 
         while (ln < this.size && this[ln].isNotBlank()) {
-            val numbers = this[ln].split(' ').map { it.toLong() }
+            val numbers = this[ln].toLongList()
             val destStart = numbers[0]
             val sourceStart = numbers[1]
             val rangeLength = numbers[2]
